@@ -1,0 +1,146 @@
+
+<!DOCTYPE html>
+<head>
+  <meta charset="UTF-8">
+  <title>إضافة تطبيق جديد</title>
+  <link rel="stylesheet" href="style.css">
+
+  <script>
+  document.addEventListener("DOMContentLoaded", function ()
+  
+   {
+    const form = document.getElementById("app-form");
+    const message = document.getElementById("form-message");
+    const resetBtn = document.getElementById("reset-btn");
+
+    const containsArabic = /[\u0600-\u06FF]/;//استناد مجال الاحرف الغيرمسموح بها اول حرف باللغة العربية و اخر حرف
+
+    // دالة لفحص الحقل وتلوينه إذا احتوى على أحرف عربية
+    function validateInput(input) 
+    {
+      input.addEventListener("input", function ()
+       {
+        if (containsArabic.test(this.value))
+         {
+          this.classList.add("input-error");
+        }
+         else
+          {
+          this.classList.remove("input-error");
+        }
+      });
+    }
+
+    // تطبيق الفحص على الحقول النصية
+    validateInput(form.name);//استدعاء الدالة على حقل الاسم
+    validateInput(form.field);// استدعاء الدالة على حقل المجال
+    validateInput(form.company);//استدعاء الدالة على حقل الشركة
+    validateInput(form.details);//استدعاء الدالة على حقل التفاصيل
+
+    form.addEventListener("submit", function (e) 
+    {
+      e.preventDefault();//منع اعادة تحميل الصفحة
+
+      const name = form.name.value;//تصريح عن متحول و اسناد اليه القيمة المدخلة في حقل الاسم من النموذج
+      const free = form.free.value;
+      const field = form.field.value;
+      const company = form.company.value
+      const details = form.details.value;
+
+      // التحقق من الحقول الفارغة
+      if (!name || !free || !field || !company)
+       {//يتم التنفيذ اذا كان احد الحقول ترك فارغا
+        message.textContent = "يرجى تعبئة جميع الحقول المطلوبة";
+        message.style.color = "red";
+        return;//ايقاف تنفي1 باقي الكود
+       }
+
+      // التحقق من وجود أحرف عربيةللحقول التالية
+      if (
+        containsArabic.test(name) ||
+        containsArabic.test(field) ||
+        containsArabic.test(company) ||
+        containsArabic.test(details)     ) 
+      {
+        message.textContent = "يرجى استخدام اللغة الإنجليزية فقط في الحقول";
+        message.style.color = "red";
+
+        // تلوين الحقول التي تحتوي على أحرف عربية
+        if (containsArabic.test(name)) form.name.classList.add("input-error");
+        if (containsArabic.test(field)) form.field.classList.add("input-error");
+        if (containsArabic.test(company)) form.company.classList.add("input-error");
+        if (containsArabic.test(details)) form.details.classList.add("input-error");
+
+        return;
+      }
+
+      // حفظ البيانات
+      const newApp = { name, free, field, company, details };
+      const apps = JSON.parse(localStorage.getItem("appsList") || "[]");//الحصول على قائمة التطبيقات المخزنة و الا ينشي قائمة فارغة
+      apps.push(newApp);//اضافة الكائن الى صفحة التطبيقات
+      localStorage.setItem("appsList", JSON.stringify(apps));
+
+      message.textContent = "تم إرسال البيانات بنجاح!";
+
+   
+        window.location.href = "apps.html";
+    
+    });
+//اسناد حدث الى زر الاعادة
+    resetBtn.addEventListener("click", function () 
+    {
+      form.reset();//اعادة تعيين النموذج
+      message.textContent = "";//مسح الرسالة
+
+      // إزالة التلوين من الحقول
+      form.name.classList.remove("input-error");
+      form.field.classList.remove("input-error");
+      form.company.classList.remove("input-error");
+      form.details.classList.remove("input-error");
+    });
+  });
+
+
+  </script>
+</head>
+
+<body>
+  <header>
+    <h1>إضافة تطبيق جديد</h1>
+    <nav>
+      <a href="index.html">الرئيسية</a>
+      <a href="about.html">من نحن</a>
+      <a href="apps.html">التطبيقات</a>
+      <a href="add-app.html">إضافة تطبيق</a>
+    </nav>
+  </header>
+
+  <section>
+    <form id="app-form">
+      <label>اسم التطبيق:</label>
+      <input type="text" name="name" required><br>
+      <label>هل التطبيق مجاني؟</label>
+      
+      <select name="free" required>
+        <option value="">اختر</option>
+        <option value="yes">yes</option>
+        <option value="no">no</option>
+      </select><br>
+
+      <label>مجال الاستخدام:</label>
+      <input type="text" name="field" required><br>
+
+      <label>اسم الشركة المطورة:</label>
+      <input type="text" name="company" required><br>
+
+      <label>معلومات إضافية:</label>
+      <textarea name="details" rows="4"></textarea><br>
+
+      <button type="submit">إرسال</button>
+      <button type="button" id="reset-btn">إعادة</button>
+    </form>
+
+    <p id="form-message" style="color: green; margin-top: 10px;"></p>
+  </section>
+</body>
+</html>

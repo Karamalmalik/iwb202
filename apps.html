@@ -1,0 +1,101 @@
+
+<!DOCTYPE html>
+<head>
+  <meta charset="UTF-8">
+  <title>صفحة التطبيقات</title>
+  <link rel="stylesheet" href="style.css"> <!-- ربط ملف التنسيقات -->
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function ()
+     {
+      const tableBody = document.querySelector(".apps-table tbody");
+  
+      // جلب التطبيقات من localStorage
+      let apps = JSON.parse(localStorage.getItem("appsList") || "[]");
+  
+      // دالة لإعادة بناء الجدول
+      function renderTable()
+       {
+        tableBody.innerHTML = ""; // مسح الجدول الحالي
+  
+        apps.forEach((app, index) => 
+        {
+          const appRow = document.createElement("tr");
+          appRow.innerHTML = `
+            <td>${app.name}</td>
+            <td>${app.free}</td>
+            <td>${app.field}</td>
+            <td>${app.company}</td>
+            <td>
+              <button class="toggle-details">تفاصيل</button>
+              <button class="delete-app" data-index="${index}">حذف</button>
+            </td>
+          `;
+  
+          const detailsRow = document.createElement("tr");
+          detailsRow.style.display = "none";
+          detailsRow.innerHTML = `
+            <td colspan="5"><strong>معلومات إضافية:</strong> ${app.details || "لا توجد معلومات إضافية."}</td>
+          `;
+  
+          tableBody.appendChild(appRow);
+          tableBody.appendChild(detailsRow);
+        });
+      }
+  
+      renderTable(); // عرض الجدول عند التحميل من خلال استدعاء الدالة
+  
+      // تفعيل زر "تفاصيل"
+      tableBody.addEventListener("click", function (e)
+       {
+        if (e.target.classList.contains("toggle-details"))
+         {
+          const detailsRow = e.target.closest("tr").nextElementSibling;
+          detailsRow.style.display = detailsRow.style.display === "none" ? "table-row" : "none";
+        }
+  
+        // تفعيل زر "حذف"
+        if (e.target.classList.contains("delete-app"))
+         {
+          const index = parseInt(e.target.getAttribute("data-index"));
+          if (confirm("هل أنت متأكد أنك تريد حذف هذا التطبيق؟"))
+           {
+            apps.splice(index, 1); // حذف التطبيق من المصفوفة
+            localStorage.setItem("appsList", JSON.stringify(apps)); // تحديث التخزين
+            renderTable(); // إعادة بناء الجدول
+          }
+        }
+      });
+    });
+  </script>
+  
+
+</head>
+
+<body>
+  <header>
+    <h1>تطبيقات الذكاء الاصطناعي</h1>
+    <nav>
+      <!-- روابط التنقل بين الصفحات -->
+      <a href="index.html">الرئيسية</a>
+      <a href="about.html">من نحن</a>
+      <a href="apps.html">التطبيقات</a>
+      <a href="add-app.html">إضافة تطبيق</a>
+    </nav>
+  </header>
+
+  <section>
+    <h2>قائمة التطبيقات</h2>
+    <table class="apps-table">
+        <tr>
+          <th>اسم التطبيق</th>
+          <th>مجاني؟</th>
+          <th>مجال الاستخدام</th>
+          <th>الشركة المطورة</th>
+          <th>تحكم</th>
+        </tr>
+        <!-- التطبيقات ستُضاف تلقائيًا هنا عبر JavaScript -->
+    </table>
+  </section>
+</body>
+</html>

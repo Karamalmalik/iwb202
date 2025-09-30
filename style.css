@@ -1,0 +1,106 @@
+/* إعدادات عامة للصفحة */
+body {
+  font-family: 'Arial', sans-serif; /* نوع الخط */
+  background-color: #f9f9f9;        /* لون خلفية ناعم */
+  color: #333;                      /* لون النص */
+  direction: rtl;                   /* اتجاه النص من اليمين لليسار */
+  margin: 0;
+  padding: 0;
+}
+
+/* رأس الصفحة */
+header {
+  background-color: #4a90e2;        /* لون خلفية الرأس */
+  color: white;                     /* لون النص */
+  padding: 20px;
+  text-align: center;
+}
+
+/* روابط التنقل */
+nav a {
+  margin: 0 10px;
+  color: white;
+  text-decoration: none;            /* إزالة خط تحت الرابط */
+}
+
+/* قسم المحتوى */
+section {
+  padding: 20px;
+}
+
+/* تنسيق الجداول */
+table {
+  width: 100%;
+  border-collapse: collapse;        /* إزالة الفراغات بين الخلايا */
+  background-color: white;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1); /* ظل خفيف حول الجدول */
+}
+
+/* خلايا الجدول */
+th, td {
+  padding: 12px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+/* رأس الجدول */
+th {
+  background-color: #e0e0e0;
+}
+
+/* صف مميز عند التفاعل */
+.highlight {
+  background-color: #dff0d8;        /* لون خلفية عند التحديد */
+}
+
+/* صف التفاصيل في جدول التطبيقات */
+.details-row td {
+  background-color: #f0f8ff;
+  font-size: 0.95em;
+  text-align: right;
+}
+
+/* تنسيق النموذج */
+form {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  max-width: 500px;
+  margin: auto;
+}
+
+/* تسميات الحقول */
+label {
+  display: block;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+/* الحقول النصية والقوائم */
+input, select, textarea {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* أزرار النموذج */
+button {
+  margin-top: 15px;
+  padding: 10px 20px;
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #357ab8;
+}
+.input-error {
+  border: 2px solid red;
+  background-color: #ffe6e6;
+}

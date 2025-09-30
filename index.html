@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<!-- تحديد نوع المستند بأنه HTML5 -->
+
+<head>
+  <meta charset="UTF-8">
+  <!-- ترميز الأحرف لدعم اللغة العربية -->
+
+  <title>الصفحة الرئيسية</title>
+  <!-- عنوان الصفحة الذي يظهر في تبويب المتصفح -->
+
+  <link rel="stylesheet" href="style.css">
+  <!-- ربط ملف التنسيق الخارجي -->
+
+  <script src="jquery.min.js"></script>
+  <!-- استدعاء مكتبة jQuery -->
+
+  <script>
+    // عند تحميل الصفحة
+    $(document).ready(function () 
+    {
+      // عند الضغط على أي صف في الجدول
+      $('#students-table tr').on('click', function () 
+      {
+        // تبديل لون الصف عند الضغط
+        $(this).toggleClass('highlight');
+      });
+    });
+  </script>
+</head>
+
+<body>
+  <header>
+    <!-- رأس الصفحة يحتوي على العنوان وشريط التنقل -->
+
+    <h1>تطبيقات الذكاء الاصطناعي</h1>
+
+    <nav>
+      <!-- روابط التنقل بين الصفحات -->
+      <a href="index.html">الرئيسية</a>
+      <a href="about.html">من نحن</a>
+      <a href="apps.html">التطبيقات</a>
+      <a href="add-app.html">إضافة تطبيق</a>
+    </nav>
+  </header>
+
+  <section>
+    <!-- قسم المحتوى الرئيسي -->
+
+    <h2>جدول الطلاب</h2>
+
+    <table id="students-table">
+      <!-- جدول يحتوي على بيانات الطلاب -->
+
+     
+        <tr>
+          <th>الاسم</th>
+          <th>رابط النشر</th>
+          <th>ملاحظات</th>
+        </tr>
+     
+
+      
+        <tr>
+          <td>أحمد</td>
+          <td><a href="#">رابط</a></td>
+          <td>ممتاز</td>
+        </tr>
+        <tr>
+          <td>أحمد</td>
+          <td><a href="#">رابط</a></td>
+          <td>ممتاز</td>
+        </tr>
+        <tr>
+          <td>أحمد</td>
+          <td><a href="#">رابط</a></td>
+          <td>ممتاز</td>
+        </tr>
+        <tr>
+          <td>أحمد</td>
+          <td><a href="#">رابط</a></td>
+          <td>ممتاز</td>
+        </tr>
+        <tr>
+          <td>أحمد</td>
+          <td><a href="#">رابط</a></td>
+          <td>ممتاز</td>
+        </tr>
+     
+    </table>
+  </section>
+</body>
+</html>
